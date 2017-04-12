@@ -2,6 +2,10 @@
 
 *{concise,reliable,cross-platform} turnup of Kubernetes clusters*
 
+###
+
+This fork is my attempt at trying to make a Kubernetes Anywhere installation work behind a HTTP proxy.
+
 ### Goals and Motivation
 
 Learning how to deploy Kubernetes is hard because the default deployment automation [`cluster/kube-up.sh`](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) is opaque. We can do better, and by doing better we enable users to run Kubernetes in more places.

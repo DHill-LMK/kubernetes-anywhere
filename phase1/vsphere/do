@@ -18,6 +18,12 @@ deploy() {
   terraform apply -state=./.tmp/terraform.tfstate .tmp
   COMMAND="grep '.phase2.kubernetes_version' ../../.config | cut -d '=' -f2 | tr -d '\"'"
   KUBERNETES_VERSION=$(eval $COMMAND)
+  BEHINDPROXY="grep '.phase1.http_proxy=' .config | cut -d '=' -f2 | tr -d '\"'"
+  if [ $BEHINDPROXY == "y"]; then
+      HTTPPROXY="grep '.phase1.http_proxy_server=' .config | cut -d '=' -f2 | tr -d '\"'"
+      export http_proxy="$HTTPPROXY"
+      export https_proxy="$HTTPPROXY"
+  fi
   # If the kubectl binary doesn't exist download it.
   if [ ! -f /usr/local/bin/kubectl_$KUBERNETES_VERSION ]; then
     echo "Kubectl binary with version - $KUBERNETES_VERSION doesn't exist. So downloading it."

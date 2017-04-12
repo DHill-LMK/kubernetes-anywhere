@@ -22,6 +22,20 @@ menuconfig phase1.cloud_provider
 	help
 	  The cloud provider you would like to deploy to.
 
+config phase1.http_proxy
+	bool "Is your cluster behind an HTTP Proxy?"
+	default y
+	help
+	  Is your cluster behind an HTTP Proxy?
+
+if phase1.http_proxy
+    config phase1.http_proxy_server
+	string "http proxy server"
+	default "http://proxy:3128"
+	help
+	  If you are behind an http proxy add it here.
+endif
+
 if phase1.cloud_provider = "gce"
 	source "phase1/gce/Kconfig"
 endif
